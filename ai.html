@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/brain.js"></script>
+        <title>AI</title>
+    </head>
+
+    <body>
+        <input type="text" id="input" placeholder="Wpisz wiadomość">
+        <button onclick="runNet()">Wyślij</button>
+        <div id="output"></div>
+
+        <script>
+            const trainingData = [
+                {
+                    input: "Polska",
+                    output: "Kraj"
+                },
+                {
+                    input: "Francja",
+                    output: "Kraj"
+                },
+                {
+                    input: "Belgia",
+                    output: "Kraj"
+                },
+                {
+                    input: "Holandia",
+                    output: "Kraj"
+                },
+                {
+                    input: "Dania",
+                    output: "Kraj"
+                },
+                {
+                    input: "USA",
+                    output: "Kraj"
+                },
+                {
+                    input: "Kraków",
+                    output: "Miasto"
+                },
+                {
+                    input: "Paryż",
+                    output: "Miasto"
+                },
+                {
+                    input: "Nowy Jork",
+                    output: "Miasto"
+                },
+                {
+                    input: "Amsterdam",
+                    output: "Miasto"
+                },
+                {
+                    input: "Kopenhaga",
+                    output: "Miasto"
+                },
+                {
+                    input: "Szanghaj",
+                    output: "Miasto"
+                },
+            ];
+
+
+            const config = {
+                hiddenLayers: [6],
+            };
+
+            const net = new brain.recurrent.LSTM(config);
+
+            // const net = new brain.recurrent.LSTM();
+
+            net.train(trainingData);
+
+
+            function runNet() {
+                const input = document.getElementById('input').value;
+                const output = net.run(input);
+                console.log(output)
+                document.getElementById('output').innerHTML = output;
+            }
+
+
+        </script>
+    </body>
+</html>
